@@ -1,5 +1,5 @@
 au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
-
+let g:ale_fix_on_save = 1
 
 
 set nocompatible
@@ -15,7 +15,9 @@ set hidden
 set ignorecase
 set smartcase
 set incsearch
-set hls		" highlight search
+set hls     " highlight search
+set tabstop=4
+set expandtab   " converts tabs into spaces
 
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
@@ -64,25 +66,42 @@ set directory^=$HOME/.vim/temp//
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-" Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-fugitive'	" for git
-Plug 'tpope/vim-commentary'	" for commenting a line or block
-Plug 'tpope/vim-obsession'	" storing vim sessions
-Plug 'preservim/nerdtree'	" file explorer
-Plug 'jeetsukumaran/vim-buffergator'	" buffers explorer
-Plug 'morhetz/gruvbox'		" gruvbox theme
-Plug 'ctrlpvim/ctrlp.vim'	" file, buffer finder
-Plug 'vim-airline/vim-airline'	" statusline theme
-Plug 'vim-airline/vim-airline-themes'	" statusline theme
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'   " for git
+Plug 'tpope/vim-commentary' " for commenting a line or block
+Plug 'tpope/vim-obsession'  " storing vim sessions
+Plug 'preservim/nerdtree'   " file explorer
+Plug 'jeetsukumaran/vim-buffergator'    " buffers explorer
+Plug 'morhetz/gruvbox'      " gruvbox theme
+Plug 'ctrlpvim/ctrlp.vim'   " file, buffer finder
+Plug 'vim-airline/vim-airline'  " statusline theme
+Plug 'vim-airline/vim-airline-themes'   " statusline theme
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-python'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
+Plug 'vim-syntastic/syntastic'
 Plug 'Chiel92/vim-autoformat'
 Plug 'mLaursen/vim-react-snippets'
-Plug 'airblade/vim-gitgutter'
-Plug 'mattn/emmet-vim'
-Plug 'dense-analysis/ale'
+Plug 'airblade/vim-gitgutter'   " tracking git changes
+Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
+Plug 'dense-analysis/ale'   " linter and fixer
+" Plug 'prettier/vim-prettier', {
+"           \ 'do': 'yarn install',
+"           \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'pangloss/vim-javascript'
+" Plug 'maxmellon/vim-jsx-pretty'  "format jsx syntax
+Plug 'leafgarland/typescript-vim'
+Plug 'Yggdroot/indentline'  " shows lines on indent
+" Plug 'SirVer/ultisnips'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" let g:prettier#autoformat = 1
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
+
+" indentline
+let g:indentLine_color_term = 239
+set conceallevel=1
+let g:indentLine_conceallevel=1
 
 
 
@@ -91,10 +110,28 @@ call plug#end()
 
 
 " vim-commentary
-autocmd FileType apache setlocal commentstring=#\ %s	" for supporting multiple languages
+autocmd FileType apache setlocal commentstring=#\ %s    " for supporting multiple languages
 
 " vim-obsession- adding to statusline
 set statusline+=%{ObsessionStatus()}
+
+
+" syntastic
+" set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" remove below line to show warning msgs also
+let g:syntastic_quiet_messages = {
+                        \ "!level":  "errors",
+                        \ "type":    "style",
+                        \ "regex":   '.*',
+                        \ "file:p":  '.*'}
+
+
 
 
 "nerdtree remap
@@ -104,6 +141,15 @@ nnoremap <Leader>n : NERDTreeToggle<CR>
 "buffergator
 let g:buffergator_suppress_keymaps = 1
 nnoremap <Leader>b :BuffergatorToggle<CR>
+
+
+""emmet vim
+"let g:user_emmet_leader_key='<Tab>'
+"let g:user_emmet_settings = {
+"                        \  'javascript.jsx' : {
+"                        \      'extends' : 'jsx',
+"                        \  },
+"                        \}
 
 
 "gruvbox
@@ -136,6 +182,7 @@ let g:ale_linters = {'python3' : ['flake8', 'pydocstyle', 'bandit', 'mypy', 'aut
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace', 'add_blank_lines_for_python_control_statements', 'reorder-python-imports'], 'python3': ['black', 'isort', 'autopep8', 'yapf']}
 let b:ale_fixers = {'javascript': ['prettier',]}
 
+let g:ale_fix_on_save = 1
 
 
 
@@ -143,29 +190,30 @@ let b:ale_fixers = {'javascript': ['prettier',]}
 "coc
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+        let col = col('.') - 1
+
+        return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 inoremap <silent><expr> <Tab>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<Tab>" :
-			\ coc#refresh()
+                        \ pumvisible() ? "\<C-n>" :
+                        \ <SID>check_back_space() ? "\<Tab>" :
+                        \ coc#refresh()
 
 
 " coc config
 let g:coc_global_extensions = [
-			\ 'coc-snippets',
-			\ 'coc-pairs',
-			\ 'coc-prettier',
-			\ 'coc-tsserver',
-			\ 'coc-json',
-			\ 'coc-eslint',
-			\ ]
+                        \ 'coc-snippets',
+                        \ 'coc-pairs',
+                        \ 'coc-prettier',
+                        \ 'coc-tsserver',
+                        \ 'coc-json',
+                        \ ]
 
+" \ 'coc-eslint',
 " coc snippets   - press enter to select a suggestion whether a snippet or keyword , use tab to navigate
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                        \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
 
@@ -185,4 +233,3 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellesca
 
 " to avoid commenting when moving to a new line with o/O from a commented line
 au FileType * set fo-=c fo-=r fo-=o
-
