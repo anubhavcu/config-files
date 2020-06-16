@@ -1,0 +1,435 @@
+Vim keyboard bindings...
+
+Vim is a Modal editor
+
+Modes in vim :
+    1. Normal mode(<esc>)
+    2. Insert mode(<i>)
+    3. Replace mode(<R>)
+    4. Visual mode(<v)
+    i) visual line mode(<S-v>)(shift-v)
+    ii) visual block mode(<C-v)
+5. Command line mode (: - colon)
+    Fundamental idea of Vim : -
+    Vim's normal mode is a programming language itself(vim's interface is a programming language), you can learn vim's different movements and its keystrokes and then combine them with each other for any desired action. (basically you can talk to vim)
+    1. in command line mode(:) ->
+    e. ( e-dot, both with and without space, gives current browsable directory) - same goes with E
+w - write the file(save)
+    wq - write and exit
+    q - exit
+! - force (w! or q!)
+    qa - quit all windows
+    wqa - write, then quit all windows
+    wqa! - force w4ite quit all windows
+
+    2. in normal mode(<esc>) ->
+u - undo (the previous command)
+    U - undo the changes made in whole line.
+    <C-r> (ctrl-r) - redo (undo the undo's)
+    you can also check recent changes (in command mode)- :undolist
+    3. in normal mode(<esc>) ->
+    gg - move the cursor to first line of file
+    G - move cursor to last line of file
+    nG - moves cursor to line 'n' of file
+    - or just type a number and direction (j or k) to move in that direction, eg- 5j- moves cursor 5lines to bottom from current line, or 7k will move cursor to 7 lines up from the current position of the cursor
+also, we can press ctrl-g for viewing line number (if line number is not shown)
+    4. in normal mode(<esc>) ->
+    a - (append) , we can either use i to get back to insert mode, but the cursor would remain at same position, whereas while using a, user gets into insert mode and cursor moves forward by 1 position
+    o - creates a new line and move to that line in insert mode
+    O - move the current line to bottom and insert a new line in its place
+    5. in normal mode(<esc>) ->
+w - moves at begining of next word(excluding its first character)
+    e - end of current word(or end of next word if already at current word's end)(including its last character)
+    b - begining of the current word(or previous word if already at the current word's begining)
+    ^ - (karat key) - cursor goes to first non-empty character on the line (like if we have spaces at the begining of a line, ^ will move to first character in that line, compare to 0(zero) which moves to begining of line.
+            0 (zero) - move to begining of a line
+            $ - move to end of the line
+            6. in normal mode->
+            ctrl-u - move up in the file
+            ctrl-d - move down in the file
+            L - move to lowest point in current screen
+            M - move to middle point in current screen
+            H - move to highest point in current screen
+            (less used )
+            ) - jump forward one sentence
+    ( - jump backward one sentence
+      } - jump forward one paragraph
+      { - jump backward one paragraph
+      7. in normal mode->
+      * - to find the next occurence of the word (on which the cursor iscurrently on)
+# - to find the previous occurence of the current word
+      8. in normal mode->
+      f[char] - finds the next occurence of character (eg. fe will find next occurence of e, note : it will find only in cursor's line and after the cursor)
+      F[char] - finds the previous occurence of character
+      - we can also use this with numbers like:
+      2f[char] - will find the second next occurence of the character
+      2F[char] - will find the send previous occurence of the character eg. 2fe- will find second next occurence of e
+      2Fe - will find second previous occurence of e
+      f/F will place the cursor on top the character searched, we can also use 't' (to) like:
+      te - will find next occurence of e,and will place the cursor before that
+      Te - will find previous occurence of e, and will place the cursor after that, 't' can be used with numbers just like 'f',
+      2te- will find the second next occurence of e and place the cursor before it ,similarly for 2Te.
+
+      note  -   After finding we can navigate through matches with , and ;
+      and with search(/) - we can navigate through 'n' and 'N' (point 18)
+
+          9. in normal mode->
+          d - delete
+          c - change(will delete and enter insert mode)
+          - both d/c take more info (motions as arguments) on which action to perform, eg
+          dw - delete the word
+          de - delete the word from where the cursor is to the end of the word(say it is in middle of the word, it will delete it to the end of the word)
+          db - delete to the begining of the word
+          same goes with c,
+               cw - change word, will delete word and puts you in insert mode
+                   ce - change word from place of cursor to end of the word
+                   cb - change word from place of cursor to begining of the word
+                   10.     dj - will delete the current line and line below it
+                   dk - will delete the current line and line above it
+                   dd - will delete current line(basically it is cut operation , we can also paste that someplace else)
+                   dG - will delete from the current line to end of document
+                   dgg- will delete from the current line to begining of the documentwe can also use it with numbers ,
+               d4d - will delete 4 lines from the current line
+                   d$ - will delete from the current position to the end of line
+                   d0 - will delete from the current position to the begining of linealso we can use it with more flexibility like -
+                   d4G - will delete from the line 4 current position in the file (if below line 4)  -  check this later
+                   (we can also delete everything in file - in command mode - :%d)
+
+                   similarly with change(c)
+                   cj - will delete the current line and line below it and puts in insert mode on current line
+                   ck - will delete the current line and line above it and puts in insert mode
+                   cc - will delete the current line and will put user in insert mode    cG - will delete from the current line to the end of the document and put user in insert mode
+                   cgg - will delete from the current line to beginning of the document and put user in insert mode
+                   c4c - delete 4 lines from the current line and puts user in insert mode
+                   c$ - delete from current position to end of line and put in insert mode
+                   c0 - delete from current position to beginint of line and put in insert mode
+
+                   more eg. - Hello world , and cursor is on H
+                   dw command will delete hello word and spaces after the word until 'world' is found,
+               whereas de command will delete hello world only and not the space after that., this is so because w is moving to the start of next word (here upto 'w' is not found) and e will move to the end of the current word only (here upto letter 'o' or hello) .
+                   11. in normal mode ->
+                   x - delete a character
+                   s (substitute) - delete a character and puts the user in insert mode
+                   r[char] (replace): replace the current character with the character passed as an argument, like rp - would replace the current character(where the cursor is currently on) with 'p'.
+                                      12. in normal mode ->
+                                      y[arg] (yank) - copy
+                                      p - paste
+                                      'y' takes motion as arguments, just like delete
+                                      yw - copy word
+                                      yy - copy line
+                                      ye - copy to end of word
+                                      yb - copy to begining of word
+                                      y4k - copy from the current line plus 4 lines to the top of it(5 lines yanked)
+                                      y4j - copy from the current line plus 4 lines to the bottom of it (5 lines yanked)
+                                      y4G - copy from line 4 to current line
+                                      y4gg - similar to above , check back later
+                                      13. Entering visual mode -
+                                      -normal visual mode(v) - selects word by word
+                                      -line visual mode(<S-v>) - selects a line at a time
+                                      -block visual mode(<C-v>) - selects block of code
+                                      we can navigate in visual mode with h,j,k,l and can do operations such as copy(y), delete(d) and so on..
+                                      14. in normal mode->
+                                      ~(tilde) - flip the case of the current character or any selections made in visual mode
+~
+Toggle case of the character under the cursor, or all visually-selected characters.
+3~
+Toggle case of the next three characters.
+g~3w
+Toggle case of the next three words.
+g~iw
+Toggle case of the current word (inner word – cursor anywhere in word).
+g~$
+Toggle case of all characters to end of line.
+g~~
+Toggle case of the current line (same as V~).
+The above uses ~ to toggle case. In each example, you can replace ~ with u to convert to lowercase, or with U to convert to uppercase. For example:
+
+U
+Uppercase the visually-selected text.
+First press v or V then move to select text.
+
+If you don't select text, pressing U will undo all changes to the current line.
+gUU
+Change the current line to uppercase (same as VU).
+gUiw
+Change current word to uppercase.
+u
+Lowercase the visually-selected text.
+
+If you don't select text, pressing u will undo the last change.
+guu
+Change the current line to lowercase (same as Vu).
+                                      14. in normal mode->
+                                      ~(tilde) - flip the case of the current character or any selections made in visual mode(changes small to caps and vice-versa)
+                                      15. counts - we can give it some number and then action to perform that action that number of times, like(also see examples in this article):
+                                          in normal mode -
+                                          4j - will move cursor down 4 lines
+                                          4k - will move cursor up 4 lines
+                                          4w - move 4 words ahead
+                                          4dw - delete 4 words
+                                          similarly in visual mode, we can multiply selections:
+                                          4w - selects 4 words
+                                          4j - in  line visual mode , selects 4 lines, and so on ...
+                                          16. Modifiers - so far we have seen categories movements(h,j,k,l), edits(d[char], c[char]) and counts(2j, 2dw ... ), modifiers is anather category which kind of change the meaning of movement command a little bit, some useful modifiers are -
+                                          a (around) - it takes movements edits and counts as a parameter, like 'ca[' - this will delete the content of square brackets along with brackets and puts the user in insert mode, similarly , da' - will delete everything inside single quotes along with the single quotes.
+                                          i (inside) - it also takes movements, edits and counts as a parameter and will delete the contents within only, eg - di[ - will delete the contents inside of square brackets and won't delete the bracket itself, similarly ci' - will delete the contents withing the single quotes and will not delete the quotes and puts user in insert mode
+                                          eg -  like we want to change the contents of - [strong opinions], and cursor is on 'p'
+                                          there are many ways to change the contents inside square brackets
+                                          i. bb -> d2w -> i
+                                          ii. bb -> c2w
+                                          iii. ci[
+                                          like in 3rd way we don't need to move the cursor to start of first word, we can simply run ci[ (means change inside square brackets ),as we are inside of [], and the contents within [ ] will get deleted and user will enter insert mode
+                                          more eg -   da' delete a single-quoted string, including the surrounding single quotes
+                                          Some more modifiers - :
+                                          iw -  inner word (works from anywhere in a word)
+                                          it - inner tag (the contents of an html tag)
+                                          i" - inner quotes
+                                          ip - inner paragraph
+                                          as - a sentence
+                                          a' - around quotes
+                                          17. when we are at (, [ , { , or ' , we can use '%' to move to matching paranthesis or quotes .
+                                                  18. in normal mode -
+                                                  /  - is used to search,  we can use it with other operations also
+                                                  /\<word\> - we can search 'word' with this also where
+                                                  \< - start of word
+                                                  \> - end of word
+                                                  \< ... \> is used for strict matching like we want to find the exact word, for eg : say we have 2 variables named - data and data_valid, so searching for word 'data' using '/' will show both options and using \<data\> will show only data option as we are telling vim to stop patern matching at end of data.
+                                                  note -- we can navigate through matches with 'n' or 'N'.
+                                                  like in case of find we use , and ; (point 8)
+                                                  Note: / searches forward for a phrase whereas
+                                                  ? followed by a phrase searches backward for that phrase
+                                                  19. inserting texts multiple times
+                                                  step 1. in normal mode - type number of times you want the text repeated
+                                                  step 2. enter insert mode - type the text
+                                                  step 3. go back to normal mode , and boom!
+
+                                                  <esc>5<i>hello<esc>   - this will print 'hello' 5 times
+                                                  20. in normal mode -
+                                                  . (dot) - it repeats the previous editing command that was made, like if previously some text text was inserted, or deleted like di( - delete inside (, dot operator will also perform the same operation to some other place where the cursor is placed.
+                                                              dot basically holds the last editing command performed and allows us to do the same to some other position without repeating that particular editing command again.
+
+                                                              21. Splitting windows : vim has this idea that there are number of tabs and each tab has some number of windows and each window corresponds to some buffer, also a particular buffer can be opened on more than one window(even within the same tab), it's like opening same file in many windows.
+                                                              :sp - split windows
+                                                              :vsp - vertically split windows
+                                                              note :sp and :vsp can also take filename as arguments eg- :vsp ~/.vimrc
+                                                              :tabnew - opens a new tab  ( use gt/gT to toggle between tabs )
+                                                              :e.  - allows to browse the current directory(in same window)
+                                                              :Sex - split current window horizontally and browse the directory
+                                                              :Vex - split the current window vertically and browse the directory
+                                                              :Tex - allows to browse the directory in new tab
+                                                              Resizing windows :
+                                                              :resize[..] / :res[..] - resize height of window
+                                                              :vertical resize[..]  - resize width of window
+                                                              eg. - :res +20 - increase height with of current window 20 rows
+                                                              :vertical resize +30 - increase width of current window with 30 columns
+
+                                                              Note :-  Vim's movement commands are called nouns because they refer to chunks of text  -
+                                                              (h,j,k,l;
+                                                               w,e,b;
+                                                               0,^,$;
+                                                               H,M,L;
+                                                               <C-u>, <C-d>;
+                                                               gg,G;
+                                                               :{number};
+                                                               find(f,F,t,T) ;
+                                                               (, and ; - for navigating matches using find) ;
+                                                               n and N (for navigating matches using search)
+                                                               Vim's editing commands are also called verbs because verbs acts on nouns -
+                                                               i enter insert mode
+                                                               but for manipulating/deleting text, want to use something more than backspace
+                                                               o / O insert line below / above
+                                                               d{motion} delete {motion}
+                                                               e.g. dw is delete word, d$ is delete to end of line, d0 is delete to beginning of line
+                                                               c{motion} change {motion}
+                                                               e.g. cw is change word
+                                                               like d{motion} followed by i
+                                                               x delete character (equal do dl)
+                                                               s substitute character (equal to xi)
+                                                               visual mode + manipulation
+                                                               select text, d to delete it or c to change it
+                                                               u to undo, <C-r> to redo
+                                                               y to copy / “yank” (some other commands like d also copy)
+                                                               p to paste
+                                                               ~ flips the case of a character
+
+                                                               Some advanced vim -
+                                                               :s/foo/bar - change the first occurence of foo with bar in current line only
+                                                               :s/foo/bar/g   - Find each occurrence of 'foo' (in the current line only), and replace it with 'bar'(g stands for globally).
+                                                               :%s/foo/bar/g  - Find each occurrence of 'foo' (in all lines), and replace it with 'bar'.
+                                                               :%s/foo/bar/   - On each line, replace the first occurrence of "foo" with "bar"(here we haven't used g).
+                                                               :%s/foo/bar/gc - Change each 'foo' to 'bar', but ask for confirmation first.
+                                                               :%s/\<foo\>/bar/gc - Change only whole words exactly matching 'foo' to 'bar'; ask for confirmation.
+                                                               :%s/foo/bar/gci - Change each 'foo' (case insensitive due to the i flag) to 'bar'; ask for confirmation.
+                                                               :%s/foo\c/bar/gc   is the same because \c makes the search case insensitive.
+                                                               This may be wanted after using :set noignorecase to make searches case sensitive (the default).
+                                                               :%s/foo/bar/gcI - Change each 'foo' (case sensitive due to the I flag) to 'bar'; ask for confirmation.
+                                                               :%s/foo\C/bar/gc  is the same because \C makes the search case sensitive.
+                                                               This may be wanted after using :set ignorecase to make searches case insensitive.
+                                                               :5,12s/foo/bar/g - Change each 'foo' to 'bar' for all lines from line 5 to line 12 (inclusive).
+                                                               :.,$s/foo/bar/g - Change each 'foo' to 'bar' for all lines from the current line (.) to the last line ($) inclusive.
+                                                               :.,+2s/foo/bar/g- Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
+                                                               ***Note - cgn => gn is just same as n but will start visual mode and change the occurence ( we just do change on next(selected) occurence )
+                                                               i. execute a regular search like  /pattern
+                                                               ii. go to first occurence and use keystroke  cgn   to replace it
+                                                               iii. type n or N to move around results
+                                                               iv. use  .  (dot) to replace the occurence with the same replacement (or go to the next result if you want to keep it )
+
+                                                               22. commenting multiple lines of code at once -
+                                                               step 1 - enter visual block mode (ctrl-v)
+                                                               step 2 - select the number of lines to be commented (don't worry about block type selection)
+                                                               step 3 - enter insert mode(shift - i)
+                                                               step 4 - enter # ( for python) - it will initially show on one line only, but after step 5, effect will be shown on all selected lines
+                                                               step 5 - enter normal mode , (<esc>, press it twice)
+                                                               Note -  use commentary plugin
+                                                               gcc - to toggle commenting a single line
+                                                               gc  - to comment out a block of code
+                                                               gcap  - to comment out a paragraph
+                                                               23. When typing a  :  command, press CTRL-D to see possible completions.
+                                                               Press <TAB> to use one completion.
+
+                                                               24. Like a web browser, we can go back, then forward for the cursor's location -
+                                                               Ctrl-o - to jump to previous(older) location of cursor
+                                                               Ctrl-i - to jump to newer location of cursor
+                                                               you can also view jumps using :jumps command
+                                                               ***NOTE-  it basically jumps to the previous/next location of cursor in the buffer. So if some file was opened in the buffer before and we ran out of previous locations of cursor in current file, it will open the previous file (with cursor positioned where it was when the file was closed) , which was opened in the buffer.
+                                                               So basically it is moving to cursor locations in the buffer, not just in the current file. we should it use this important toll to travel in buffer.
+                                                               25. we can also look for files in current directory using (refer to pt. 21 also)-
+                                                               :!ls
+                                                               :!la
+                                                               :!dir
+                                                               i.e we can execute an external command using exclamation mark
+                                                               type :! followed by an external command to execute it .
+                                                               26. use :e ~/.vimrc  inside vim to edit vimrc file
+                                                               or use    vim ~/.vimrc in terminal to edit that file
+                                                               27. retrieving and merging files
+                                                               to insert the contents of a file, type   :r FILENAME
+                                                               -the contents of the filename entered will be copied to point where cursor was.
+                                                               we can also read the output of an external command, for eg- :r !ls  reads the output of the ls command and puts it below the cursor.
+
+                                                               Macros
+                                                               -q{character} to start recording a macro in register {character}
+                                                  -q to stop recording
+                                                      -@{character} replays the macro
+                                                      -Macro execution stops on error
+                                                      -{number}@{character} executes a macro {number} times
+                                                      -Macros can be recursive
+                                                      -first clear the macro with q{character}q
+                                                      -record the macro, with @{character} to invoke the macro recursively (will be a no-op until recording is complete)
+                                                      …
+                                                      Vim commands / macros
+                                                      -Gdd, ggdd delete first and last lines
+                                                      Execute macro until end of file
+                                                      -999@q
+                                                      28. indent -
+                                                      > - is used to indent a particular line or selection
+                                                      press it twice or press > and enter.
+                                                      29. while using search in normal mode (point 18) we use /
+                                                      but if we use it in command line mode =>   :/{character/word}, then searched word will be highlighted permanently
+                                                      to undo this use     => :noh
+                                                      30. nerdtree plugin is a filesystem explorer for vim editor
+                                                      below two lines maps the default keybindings for nerdTree, (leader is is \)
+                                                              nnoremap <Leader>n :NERDTreeToggle<CR>
+                                                              nnoremap <Leader>f :NERDTreeFind<CR>
+                                                              -- use <shift>-i   to toggle hidden file view
+                                                              use <leader>n or <leader>f to quickly toggle in and out of file explorer
+                                                              ** also see .vimrc file for more configurations
+                                                              ? - invokes help menu of nerdTree
+                                                              pressing enter on a file will open it in same buffer
+                                                              i - will open file in split
+                                                              s - will open file in vertical split
+                                                              ** while using nerdTree, navigate to the directory where you want to create a file,
+                                                              press  m  to bring up the nerdTree filesystem menu and follow the options along .
+                                                              'a' is to create a file, then enter filename at the prompt
+                                                              when using 'a' to create a file add a '/' to end of filename to create a folder.
+                                                              31. using ctrlP -
+                                                              mapped to ctrl-p   -  see .vimrc for reference
+                                                              hit enter when searching a file to open in current buffer
+                                                              <c-v>   - to open in vertical split new buffer
+                                                              <c-x>/<c-s>   - to open in horizontal split new buffer
+                                                              ** remember using :sp<enter> opens the current buffer in split mode
+                                                              32. Youcompleteme plugin is mapped to <leader>- g   -> see .vimrc for reference
+                                                              33. vundle - package manager for vim
+                                                              -starts with "call vundle#begin()"
+                                                              -ends with "call vundle#end"
+                                                              all plugins installed with vundle needs to be within this block in .vimrc and then inside vim's command mode we run :PluginInstall to install all plugins -- -see .vimrc for reference
+                                                              => pathogen is similar to vundle - but has different installation procedure
+                                                              just we have to include     "execute pathogen#infect()" inside our .vimrc and rest procedure depends on plugin (usually cloning from git in ~/.vim/bundle)
+                                                              34. when cursor is on a number use
+                                                              <c-a> -  increments the number
+                                                              <c-x> -  decrements the number
+                                                              35. nmap/nnoremap  -> is used for normal mode mapping
+                                                              imap/inoremap  -> is used for insert mode mapping
+                                                              <silent>       -> is used while mapping to tell vim to show no message when the key sequence is used
+                                                              36. use buffergator plugin to select from recently open files in buffer
+                                                              also, <enter> - to open selected file in current buffer
+                                                              <c-v>    -to open selected file in new buffer in vertical split
+                                                              <c-s>  - to open selected file in new buffer in horizontal split
+
+
+                                                              37. while using multiple panes inside vim use
+                                                              <c-w> |    => set current window width to max(zoom in)
+                                                              <c-w> _   => set current window height to max
+                                                              <c-w> =   => make all windows of equal height and width(zoom out)
+
+                                                              38. VIm Obsession and tmux resurrect plugin --
+
+                                                              for saving tmux session  :   {prefix} <c-s>
+                                                                  for restoring tmux session :  {prefix} <c-r>
+                                                                      Now tmux resurrect doesn't restore vim sessions
+                                                                          to record a vim session   -   :Obsess
+                                                                          to delete a session      -    :Obsess!
+                                                                          to load a session(from bash) - vim -S
+
+
+                                                                          Current Plugins :
+                                                                          vim
+
+
+
+                                                                          Current Plugins :
+                                                                          vim
+
+
+
+                                                                          Current Plugins :
+                                                                          1.vim
+                                                                          --------
+                                                                          vundle
+                                                                          pathogen
+                                                                          vim-fugitive
+                                                                          ale
+                                                                          vim-buffergator
+                                                                          vim-autoformat
+                                                                          YouCompleteMe
+                                                                          Gruvbox
+                                                                          vim-commentary
+                                                                          command-t
+                                                                          ctrP
+                                                                          syntastic
+                                                                          vim-obsession
+                                                                          sparkup
+
+                                                                          2. Tmux
+                                                                          ---------
+                                                                          tpm (tmux plugin manager)
+                                                                          tmux-sensible
+                                                                          tmux-resurrect
+                                                                          tmux-continumm
+
+                                                                          *** Naviagting between vim tabs
+                                                                          :tabnew - opens a new tab
+                                                                          gt - go to next tab (:tabn)
+                                                                          gT - go to previous tab (:tabN)
+#gt - go to #th tab (:tabn #)
+                                                                          :tabr - go to first tab
+                                                                          :tabl - go to last tab
+                                                                          :tabm - move the current tab to last position
+                                                                          :tabm # - move the current tab to #th position
+
+Note --
+" use 'eslint --init' //  or use 'eslint -D --init' to download it as a dev dependencies for normal html/css/js file to configure eslint(otherwise it will show some warning for each file ), also check proper versions and config settings for eslint so it recognizes es6 syntax
+
+for live server - download browser-sync with npm ( npm i -D browser-sync), here D stands for dev dependencies
+then go to the directory of project and run -
+       "browser-sync start --server --files ."
+       -- here dot(.) means to look for changes in all files of the project directory
