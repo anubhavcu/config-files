@@ -109,12 +109,18 @@ Plug 'dense-analysis/ale'   " linter and fixer
 Plug 'Yggdroot/indentline'  " shows lines on indent
 Plug 'mxw/vim-jsx'
 Plug 'othree/yajs.vim'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " Plug 'SirVer/ultisnips'
 
 " indentline
 let g:indentLine_color_term = 239
 set conceallevel=1
 let g:indentLine_conceallevel=1
+
+
+" prettier
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
 
 
 
