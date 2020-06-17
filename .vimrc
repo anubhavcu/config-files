@@ -1,4 +1,20 @@
-au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
+set encoding=utf-8
+" au BufNewFile,BufRead * .py
+"             \ set tabstop=4
+"             \ set softtabstop=4
+"             \ set shiftwidth=4
+"             \ set textwidth=79
+"             \ set expandtab
+"             \ set autoindent
+"             \ set fileformat=unix
+
+" au BufNewFile,BufRead * .js,  * .html, * .css
+"             \ set tabstop=2
+"             \ set softtabstop=2
+"             \ set shiftwidth=2
+
+
+
 let g:ale_fix_on_save = 1
 
 
@@ -18,7 +34,12 @@ set incsearch
 set hls     " highlight search
 set tabstop=4
 set expandtab   " converts tabs into spaces
-
+filetype plugin indent on
+set tabstop=8
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+filetype indent on
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 
@@ -85,18 +106,10 @@ Plug 'mLaursen/vim-react-snippets'
 Plug 'airblade/vim-gitgutter'   " tracking git changes
 Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
 Plug 'dense-analysis/ale'   " linter and fixer
-" Plug 'prettier/vim-prettier', {
-"           \ 'do': 'yarn install',
-"           \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-Plug 'pangloss/vim-javascript'
-" Plug 'maxmellon/vim-jsx-pretty'  "format jsx syntax
-Plug 'leafgarland/typescript-vim'
 Plug 'Yggdroot/indentline'  " shows lines on indent
+Plug 'mxw/vim-jsx'
+Plug 'othree/yajs.vim'
 " Plug 'SirVer/ultisnips'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-" let g:prettier#autoformat = 1
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-
 
 " indentline
 let g:indentLine_color_term = 239
@@ -108,6 +121,11 @@ let g:indentLine_conceallevel=1
 " Initialize plugin system
 call plug#end()
 
+
+" autoformat
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
 
 " vim-commentary
 autocmd FileType apache setlocal commentstring=#\ %s    " for supporting multiple languages
@@ -126,10 +144,10 @@ let g:syntastic_check_on_wq = 0
 
 " remove below line to show warning msgs also
 let g:syntastic_quiet_messages = {
-                        \ "!level":  "errors",
-                        \ "type":    "style",
-                        \ "regex":   '.*',
-                        \ "file:p":  '.*'}
+            \ "!level":  "errors",
+            \ "type":    "style",
+            \ "regex":   '.*',
+            \ "file:p":  '.*'}
 
 
 
@@ -190,30 +208,30 @@ let g:ale_fix_on_save = 1
 "coc
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
-        let col = col('.') - 1
+    let col = col('.') - 1
 
-        return !col || getline('.')[col - 1]  =~ '\s'
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 inoremap <silent><expr> <Tab>
-                        \ pumvisible() ? "\<C-n>" :
-                        \ <SID>check_back_space() ? "\<Tab>" :
-                        \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
 
 
 " coc config
 let g:coc_global_extensions = [
-                        \ 'coc-snippets',
-                        \ 'coc-pairs',
-                        \ 'coc-prettier',
-                        \ 'coc-tsserver',
-                        \ 'coc-json',
-                        \ ]
+            \ 'coc-snippets',
+            \ 'coc-pairs',
+            \ 'coc-prettier',
+            \ 'coc-tsserver',
+            \ 'coc-json',
+            \ ]
 
 " \ 'coc-eslint',
 " coc snippets   - press enter to select a suggestion whether a snippet or keyword , use tab to navigate
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-                        \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
 
@@ -230,6 +248,7 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellesca
 
 
 
+au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
 
 " to avoid commenting when moving to a new line with o/O from a commented line
 au FileType * set fo-=c fo-=r fo-=o
