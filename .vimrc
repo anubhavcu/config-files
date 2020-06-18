@@ -107,25 +107,43 @@ Plug 'airblade/vim-gitgutter'   " tracking git changes
 Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
 Plug 'dense-analysis/ale'   " linter and fixer
 Plug 'Yggdroot/indentline'  " shows lines on indent
-Plug 'mxw/vim-jsx'
-Plug 'othree/yajs.vim'
+Plug 'mxw/vim-jsx'          " for jsx syntax
+Plug 'othree/yajs.vim'      " for js syntax
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'easymotion/vim-easymotion'
 " Plug 'SirVer/ultisnips'
+
 
 " indentline
 let g:indentLine_color_term = 239
 set conceallevel=1
 let g:indentLine_conceallevel=1
 
-
 " prettier
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 
 
-
 " Initialize plugin system
 call plug#end()
+
+
+" easymotion
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 
 
 " autoformat
