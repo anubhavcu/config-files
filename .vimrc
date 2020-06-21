@@ -111,6 +111,7 @@ Plug 'mxw/vim-jsx'          " for jsx syntax
 Plug 'othree/yajs.vim'      " for js syntax
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'easymotion/vim-easymotion'
+Plug 'leafgarland/typescript-vim'   " for typescript syntax - remove if problem occurs
 " Plug 'SirVer/ultisnips'
 
 
@@ -126,6 +127,14 @@ let g:prettier#autoformat_require_pragma = 0
 
 " Initialize plugin system
 call plug#end()
+
+
+" leafgarland
+"automatically indent chained methods as typed
+setlocal indentkeys+=0
+let g:typescript_indent_disable = 1     "disabling plugins custom indenter
+
+
 
 
 " easymotion
