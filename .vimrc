@@ -1,4 +1,3 @@
-set encoding=utf-8
 " au BufNewFile,BufRead * .py
 "             \ set tabstop=4
 "             \ set softtabstop=4
@@ -13,11 +12,13 @@ set encoding=utf-8
 "             \ set softtabstop=2
 "             \ set shiftwidth=2
 
+" main purpose for below 2 lines is for css autocomplete suggestions --> press <C-x> then <C-o>
+" also use <C-n> for completing words(id's,classNames etc based on files opened) - no config needed for using <C-n>
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 
 let g:ale_fix_on_save = 1
-
-
 set nocompatible
 syntax on
 
@@ -76,9 +77,18 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 
+" saving current buffer
+nnoremap <leader>o :w<cr>
+
+"move lines around
+nnoremap <leader>k :m-2<cr>==
+nnoremap <leader>j :m+<cr>==
+xnoremap <leader>k :m-2<cr>gv=gv
+xnoremap <leader>j :m'>+<cr>gv=gv
+
 " organise all swap files in one place, note since swap files are not in same directory of file, it will not warn if a file is already open in other buffer
 set directory^=$HOME/.vim/temp//
-
+set noswapfile " dont create swp files or any backup files in vim
 
 " ---- Plugins -----
 
@@ -105,15 +115,21 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mLaursen/vim-react-snippets'
 Plug 'airblade/vim-gitgutter'   " tracking git changes
 Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
-Plug 'dense-analysis/ale'   " linter and fixer
+" Plug 'dense-analysis/ale'   " linter and fixer
 Plug 'Yggdroot/indentline'  " shows lines on indent
 Plug 'mxw/vim-jsx'          " for jsx syntax
 Plug 'othree/yajs.vim'      " for js syntax
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'easymotion/vim-easymotion'
 Plug 'leafgarland/typescript-vim'   " for typescript syntax - remove if problem occurs
+" Plug 'jmcantrell/vim-virtualenv'
+Plug 'vim-python/python-syntax'     " for python syntax highlighting
 " Plug 'SirVer/ultisnips'
 
+" python-syntax
+let g:python_highlight_all = 1
+let g:python_highlight_space_errors = 0
+let g:python_highlight_indent_errors = 0
 
 " indentline
 let g:indentLine_color_term = 239
@@ -192,7 +208,10 @@ nnoremap <Leader>n : NERDTreeToggle<CR>
 "buffergator
 let g:buffergator_suppress_keymaps = 1
 nnoremap <Leader>b :BuffergatorToggle<CR>
-
+let g:buffergator_viewport_split_policy="T"
+let g:buffergator_autoexpand_on_split=0
+let g:buffergator_split_size=10
+let g:buffergator_display_regime='filepath'
 
 ""emmet vim
 "let g:user_emmet_leader_key='<Tab>'
@@ -285,3 +304,6 @@ au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal
 
 " to avoid commenting when moving to a new line with o/O from a commented line
 au FileType * set fo-=c fo-=r fo-=o
+
+
+
