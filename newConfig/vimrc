@@ -60,6 +60,11 @@ nnoremap <C-H> <C-W><C-H>
 " saving current buffer
 nnoremap <leader>o :w<cr>
 
+
+" open terminal
+nnoremap <leader>t :ter<cr>
+" nnoremap <leader>v :vert<cr>
+
 "move lines around
 nnoremap <leader>k :m-2<cr>==
 nnoremap <leader>j :m+<cr>==
