@@ -220,6 +220,12 @@ nmap <silent> gr <Plug>(coc-references)
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
+" run python code in current buffer - alternative
+autocmd Filetype python nnoremap <buffer> <leader>r :w<CR>:ter python3 "%"<CR>
+" autocmd Filetype python nnoremap <buffer> <F6> :w<CR>:vert ter python3 "%"<CR>
+
+" close current buffer
+nnoremap <leader>c :q!<cr>
 
 " vim-autoformat
 au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
