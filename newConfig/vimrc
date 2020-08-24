@@ -1,7 +1,9 @@
 " refer to old vimrc for reference
+set encoding=UTF-8  " specially for devicons "
 set nocompatible
 syntax on
 filetype plugin on
+set omnifunc=syntaxcomplete#Complete    "for using vim's built-in suggestion for autocomplete by checking all files, use <C-n>
 set showcmd
 set shortmess+=I
 set number
@@ -101,10 +103,38 @@ Plug 'mLaursen/vim-react-snippets'
 Plug 'airblade/vim-gitgutter'   " tracking git changes
 Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
 Plug 'ctrlpvim/ctrlp.vim'   " file, buffer finder
+Plug 'leafgarland/typescript-vim'   " for typescript syntax - remove if problem occurs
+" Plug 'ap/vim-css-color'     " for identifying colors in a .css file (not working with vim-rainbow)
+Plug 'severin-lemaignan/vim-minimap'   " minimap sidebar for overall view - see config below <leader> mm | <leader>mc
+Plug 'frazrepo/vim-rainbow'         " for colored paranthesis -- check advanced config on git if needed
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
+" also check vim-surround if needed
 
 " ---------- plugin settings ------------------
+
+
+"vim-devicons
+"for devicons to work, downlaod a nerdfont, then extract and paste it into ~/.fonts folder
+" below settings works by default, check later if problem occurs
+" let g:webdevicons_conceal_nerdtree_brackets = 0
+" let g:webdevicons_enable_airline_tabline = 1
+" let g:webdevicons_enable_airline_statusline = 1
+" let g:webdevicons_enable_ctrlp = 1
+" let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+
+
+
+"vim-rainbow
+"problem working with vim-css-color
+let g:rainbow_active = 1
+
+" leafgarland
+"automatically indent chained methods as typed
+setlocal indentkeys+=0
+let g:typescript_indent_disable = 1     "disabling plugins custom indenter
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
