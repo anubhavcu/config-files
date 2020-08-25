@@ -1,4 +1,7 @@
 " refer to old vimrc for reference
+" set -o vi   -- use this in bashrc for vi mode in terminal
+
+set path+=**     " use :find FILENAME (or use :find *Name) - basically search through all directories and subdirectories for a file (pure vim, in case you don't want to use ctrlp)"
 set encoding=UTF-8  " specially for devicons "
 set nocompatible
 syntax on
@@ -107,11 +110,12 @@ Plug 'leafgarland/typescript-vim'   " for typescript syntax - remove if problem 
 " Plug 'ap/vim-css-color'     " for identifying colors in a .css file (not working with vim-rainbow)
 Plug 'severin-lemaignan/vim-minimap'   " minimap sidebar for overall view - see config below <leader> mm | <leader>mc
 Plug 'frazrepo/vim-rainbow'         " for colored paranthesis -- check advanced config on git if needed
+Plug 'tpope/vim-surround'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'vimwiki/vimwiki'      "personal wiki for notes etc. - (<leader> ww)- see manual
 
 call plug#end()
-" also check vim-surround if needed
 
 " ---------- plugin settings ------------------
 
@@ -259,3 +263,5 @@ nnoremap <leader>c :q!<cr>
 
 " vim-autoformat
 au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
+
+" install pip3 from terminal for python support (also check for packages like black, flake8 etc if not present(check using pip3 freeze ))
