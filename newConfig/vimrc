@@ -256,6 +256,7 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellesca
 
 " run python code in current buffer - alternative
 autocmd Filetype python nnoremap <buffer> <leader>r :w<CR>:ter python3 "%"<CR>
+autocmd Filetype python nnoremap <buffer> <leader>vr  :w<CR>:vert ter python3 "%"<CR>
 " autocmd Filetype python nnoremap <buffer> <F6> :w<CR>:vert ter python3 "%"<CR>
 
 " close current buffer
