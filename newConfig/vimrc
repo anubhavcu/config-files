@@ -1,8 +1,9 @@
 " refer to old vimrc for reference
 " set -o vi   -- use this in bashrc for vi mode in terminal
 
+
 set path+=**     " use :find FILENAME (or use :find *Name) - basically search through all directories and subdirectories for a file (pure vim, in case you don't want to use ctrlp)"
-set encoding=UTF-8  " specially for devicons "
+set encoding=UTF-8  " specially for devicons
 set nocompatible
 syntax on
 filetype plugin on
@@ -27,8 +28,8 @@ set softtabstop=4
 set shiftwidth=4
 filetype indent on
 " Unbind some useless/annoying default key bindings.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-
+" 'Q' in normal mode enters Ex mode. You almost never want this.
+nmap Q <Nop>
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
@@ -65,10 +66,10 @@ nnoremap <C-H> <C-W><C-H>
 " saving current buffer
 nnoremap <leader>o :w<cr>
 
-
 " open terminal
 nnoremap <leader>t :ter<cr>
 " nnoremap <leader>v :vert<cr>
+
 
 "move lines around
 nnoremap <leader>k :m-2<cr>==
@@ -100,29 +101,29 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-python/python-syntax'     " for python syntax
 Plug 'Yggdroot/indentline'  " shows lines on indent
-Plug 'mxw/vim-jsx'          " for jsx syntax
+Plug 'mxw/vim-jsx'          " for jsx syntax -----DEPRECIATED package
+Plug 'maxmellon/vim-jsx-pretty'     " for jsx highlight
+Plug 'yuezk/vim-js'     " for enhancing vim-jsx-pretty
 Plug 'othree/yajs.vim'      " for js syntax
 Plug 'mLaursen/vim-react-snippets'
 Plug 'airblade/vim-gitgutter'   " tracking git changes
 Plug 'mattn/emmet-vim'      " html css snippets (also understands jsx code )
 Plug 'ctrlpvim/ctrlp.vim'   " file, buffer finder
 Plug 'leafgarland/typescript-vim'   " for typescript syntax - remove if problem occurs
-" Plug 'ap/vim-css-color'     " for identifying colors in a .css file (not working with vim-rainbow)
+" Plug 'ap/vim-css-color'     " for identifying colors in a .css file - (not working with vim rainbow)
 Plug 'severin-lemaignan/vim-minimap'   " minimap sidebar for overall view - see config below <leader> mm | <leader>mc
 Plug 'frazrepo/vim-rainbow'         " for colored paranthesis -- check advanced config on git if needed
 Plug 'tpope/vim-surround'
-Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
 Plug 'vimwiki/vimwiki'      "personal wiki for notes etc. - (<leader> ww)- see manual
 
 call plug#end()
 
 " ---------- plugin settings ------------------
 
-
 "vim-devicons
 "for devicons to work, downlaod a nerdfont, then extract and paste it into ~/.fonts folder
-" below settings works by default, check later if problem occurs
 " let g:webdevicons_conceal_nerdtree_brackets = 0
 " let g:webdevicons_enable_airline_tabline = 1
 " let g:webdevicons_enable_airline_statusline = 1
@@ -130,10 +131,16 @@ call plug#end()
 " let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
 
+"vim-surround
+
+
 
 "vim-rainbow
-"problem working with vim-css-color
+" problem working with vim-css-color
 let g:rainbow_active = 1
+
+
+
 
 " leafgarland
 "automatically indent chained methods as typed
@@ -225,6 +232,7 @@ inoremap <silent><expr> <Tab>
             \ <SID>check_back_space() ? "\<Tab>" :
             \ coc#refresh()
 
+" let g:coc_snippet_next = '<tab>'
 
 " coc config
 let g:coc_global_extensions = [
@@ -254,15 +262,15 @@ nmap <silent> gr <Plug>(coc-references)
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-" run python code in current buffer - alternative
+" run python code in current buffer
 autocmd Filetype python nnoremap <buffer> <leader>r :w<CR>:ter python3 "%"<CR>
 autocmd Filetype python nnoremap <buffer> <leader>vr  :w<CR>:vert ter python3 "%"<CR>
 " autocmd Filetype python nnoremap <buffer> <F6> :w<CR>:vert ter python3 "%"<CR>
-
 " close current buffer
 nnoremap <leader>c :q!<cr>
 
 " vim-autoformat
 au BufWrite * :Autoformat   " autoformat files on save (install pep8 in terminal for python and for js install js-beautify)
+
 
 " install pip3 from terminal for python support (also check for packages like black, flake8 etc if not present(check using pip3 freeze ))
